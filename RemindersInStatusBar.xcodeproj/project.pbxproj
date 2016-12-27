@@ -11,7 +11,7 @@
 		6004E77A1DDE82E700396427 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6004E7791DDE82E700396427 /* main.m */; };
 		6004E77C1DDE82E700396427 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6004E77B1DDE82E700396427 /* Assets.xcassets */; };
 		6004E77F1DDE82E700396427 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6004E77D1DDE82E700396427 /* MainMenu.xib */; };
-		6057D4A61E122D2D00AF2E7F /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 6057D4A41E122D2D00AF2E7F /* README.md */; };
+		6057D4A61E122D2D00AF2E7F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 6057D4A41E122D2D00AF2E7F /* README.md */; };
 		6057D4A71E122D2D00AF2E7F /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 6057D4A51E122D2D00AF2E7F /* LICENSE */; };
 		60D0C8371DEA7222001634BF /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 60D0C8361DEA7222001634BF /* Utils.m */; };
 /* End PBXBuildFile section */
@@ -141,6 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6057D4A71E122D2D00AF2E7F /* LICENSE in Resources */,
+				6057D4A61E122D2D00AF2E7F /* README.md in Resources */,
 				6004E77C1DDE82E700396427 /* Assets.xcassets in Resources */,
 				6004E77F1DDE82E700396427 /* MainMenu.xib in Resources */,
 			);
@@ -155,7 +156,6 @@
 			files = (
 				60D0C8371DEA7222001634BF /* Utils.m in Sources */,
 				6004E77A1DDE82E700396427 /* main.m in Sources */,
-				6057D4A61E122D2D00AF2E7F /* README.md in Sources */,
 				6004E7771DDE82E700396427 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
