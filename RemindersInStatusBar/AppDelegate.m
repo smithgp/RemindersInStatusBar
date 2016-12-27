@@ -96,12 +96,32 @@ static NSCalendar* _calendar = nil;
 - (void)initializeMenu:(NSMenu*)menu {
     // add in all uncompleted tasks that have a dueDate (need to pass in non-nill startDate or you get everything)
     [self insertRemindersMenuItems:menu startingAt:0
-          predicate:[self.eventStore predicateForIncompleteRemindersWithDueDateStarting:[[NSDate alloc] initWithTimeIntervalSince1970:0.0] ending:nil calendars:nil]];
+          predicate:[self.eventStore predicateForIncompleteRemindersWithDueDateStarting:[[NSDate alloc] initWithTimeIntervalSince1970:0.0] ending:nil calendars:nil]
+          sortBy:^NSComparisonResult(EKReminder* e1, EKReminder* e2) {
+              // sort the reminders by their due date, which can technically be nil (but shouldn't be here)
+              NSDateComponents* d1 = e1.dueDateComponents;
+              NSDateComponents* d2 = e2.dueDateComponents;
+              if (d1 != nil && d2 != nil) {
+                  NSCalendar* c = [AppDelegate calendar];
+                  return [[c dateFromComponents:d1] compare:[c dateFromComponents:d2]];
+              }
+              else if (d1 == d2) {
+                  return NSOrderedSame;
+              }
+              else if (d1 != nil) {
+                  return NSOrderedAscending;
+              }
+              return NSOrderedDescending;
+          }
+    ];
 }
 
-- (void)insertRemindersMenuItems:(NSMenu*)menu startingAt:(int)start predicate:(NSPredicate*)predicate {
+- (void)insertRemindersMenuItems:(NSMenu*)menu startingAt:(int)start predicate:(NSPredicate*)predicate
+                          sortBy:(NSComparator)comparator {
     [self.eventStore fetchRemindersMatchingPredicate:predicate completion:^(NSArray<EKReminder*> *reminders) {
-        // TODO: sort by dueDate
+        if (comparator != nil) {
+            reminders = [reminders sortedArrayUsingComparator:comparator];
+        }
         //printf("# of reminders = %d", (int)reminders.count);
         [Utils runOnMainThread:^{
             if (reminders.count <= 0) {
