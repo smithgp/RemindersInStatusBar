@@ -150,10 +150,23 @@ static NSCalendar* _calendar = nil;
             title = [@[title, @" (", dateStr, @")"] componentsJoinedByString:@""];
         }
     }
-    else {
-        NSLog(@"'%@' dueDateComponents==nil", reminder.title);
+    //else {
+    //    NSLog(@"'%@' dueDateComponents==nil", reminder.title);
+    //}
+    NSMenuItem* item = [[NSMenuItem alloc] initWithTitle:title action:@selector(openReminderFromMenuItem:) keyEquivalent:@""];
+    item.representedObject = reminder;
+    return item;
+}
+
+- (void)openReminderFromMenuItem:(NSMenuItem*)sender {
+    if (sender != nil) {
+        EKReminder* reminder = sender.representedObject;
+        if (reminder != nil) {
+            NSString* url = [@"x-apple-reminder://" stringByAppendingString:reminder.calendarItemIdentifier];
+            //NSLog(@"Opening %@ as %@", reminder.title, url);
+            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:url]];
+        }
     }
-    return [[NSMenuItem alloc] initWithTitle:title action:nil keyEquivalent:@""];
 }
 
 - (void)openRemindersPrivacyPrefs:(nullable id)sender {
